@@ -70,11 +70,11 @@ public class sign extends PluginBase implements Listener{
                         dropItem.put(player,player.getInventory().getItemInHand());
                     }
                 }else{
-					player.sendMessage("§l§6 [Trash] 你必须潜行才可以删除物品");
-				}
+			player.sendMessage("§l§6 [Trash] 你必须潜行才可以删除物品");
+		}
             }else{
-				player.sendMessage("§l§6 [Trash] 你手中没有任何物品");
-			}
+		    player.sendMessage("§l§6 [Trash] 你手中没有任何物品");
+	    }
         }
     }
     
