@@ -37,12 +37,12 @@ public class sign extends PluginBase implements Listener{
     public void onWriteSign(SignChangeEvent event) throws Exception {
         Player player = event.getPlayer();
         Block block = event.getBlock();
-        if(event.getLine(0).equals("drop")){
+        if(event.getLine(0).equals("drop") || event.getLine(0).equals("del") || event.getLine(0).equals("删除")){
             for (int i = 0;i < 4;i++){
                 event.setLine(i,(String) getConfig().getList("showMessage").get(i));
             }
             player.getLevel().setBlock(new Vector3(block.getX(),block.getY(),block.getZ()),block);
-            player.sendMessage("§l§b [Trash] Setting Success");
+            player.sendMessage("§l§b [Trash] 设置成功");
         }
     }
 
@@ -59,23 +59,25 @@ public class sign extends PluginBase implements Listener{
                     if(dropItem.containsKey(player)){
                         if(dropItem.get(player).equals(player.getInventory().getItemInHand(),true,true)){
                             player.getInventory().removeItem(player.getInventory().getItemInHand());
-                            player.sendMessage("§l§6 [Trash] Item is Drop");
+                            player.sendMessage("§l§6 [Trash] 物品已删除");
                             dropItem.remove(player);
                         }else{
-                            player.sendMessage("§l§c [Trash] Item is't Last Click");
+                            player.sendMessage("§l§c [Trash] 两次点击物品不一致");
                             dropItem.remove(player);
                         }
                     }else{
-                        player.sendMessage("§l§e [Trash]  Click Again this Place");
+                        player.sendMessage("§l§e [Trash]  再次点击删除物品");
                         dropItem.put(player,player.getInventory().getItemInHand());
                     }
                 }else{
-                    player.sendMessage("§l§6 [Trash] You Can't Drop Air");
-                }
-            }
+					player.sendMessage("§l§6 [Trash] 你必须潜行才可以删除物品");
+				}
+            }else{
+				player.sendMessage("§l§6 [Trash] 你手中没有任何物品");
+			}
         }
     }
-
+    
     @Override
     public void onDisable() {
         for (Level level : Server.getInstance().getLevels().values()){
